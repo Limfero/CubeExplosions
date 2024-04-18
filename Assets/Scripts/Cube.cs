@@ -4,9 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(Renderer))]
 public class Cube : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem _effect;
-
     public event Action<Cube> Dividing;
+    public event Action<Cube> NotDivided;
 
     private float _chanceDividing = 1f;
 
@@ -33,7 +32,7 @@ public class Cube : MonoBehaviour
 
         if (UnityEngine.Random.Range(minFloat, maxFloat) < _chanceDividing)
             Dividing?.Invoke(this);
-
-        Instantiate(_effect, transform.position, transform.rotation);
+        else
+            NotDivided?.Invoke(this); ;
     }
 }

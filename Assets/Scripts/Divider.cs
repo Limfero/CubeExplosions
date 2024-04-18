@@ -6,6 +6,7 @@ public class Divider : MonoBehaviour
 {
     [SerializeField] private Cube _cube;
     [SerializeField] private List<Color> _colors;
+    [SerializeField] private ParticleSystem _effect;
 
     private int _minCubesCount = 2;
     private int _maxCubesCount = 6;
@@ -25,6 +26,7 @@ public class Divider : MonoBehaviour
     }
     private void Divide(Cube cube)
     {
+        Instantiate(_effect, transform.position, transform.rotation);
         int countCube = UnityEngine.Random.Range(_minCubesCount, _maxCubesCount);
 
         for (int i = 0; i < countCube; i++)
