@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Exploder : MonoBehaviour
@@ -24,20 +25,12 @@ public class Exploder : MonoBehaviour
         Instantiate(_effect, transform.position, transform.rotation);
         float multiplier = cube.transform.localScale.x > 1 ? 1 / cube.transform.localScale.x : -(float)Math.Log(cube.transform.localScale.x) + 1;
 
-        foreach (var explodableObject in GetExplodableObjects())
+        List<Rigidbody> explodableObjects = Physics.OverlapSphere(transform.position, _explosionRadius)
+            .Where(hit => hit.attachedRigidbody != null)
+            .Select(hit => hit.attachedRigidbody)
+            .ToList();
+
+        foreach (var explodableObject in explodableObjects)
             explodableObject.AddExplosionForce(_explosionForce * multiplier, transform.position, _explosionRadius * multiplier);
-    }
-
-    private List<Rigidbody> GetExplodableObjects()
-    {
-        Collider[] hits = Physics.OverlapSphere(transform.position, _explosionRadius);
-
-        List<Rigidbody> objects = new();
-
-        foreach (var hit in hits)
-            if (hit.attachedRigidbody != null)
-                objects.Add(hit.attachedRigidbody);
-
-        return objects;
     }
 }
