@@ -1,31 +1,39 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(Renderer))]
 public class Cube : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _effect;
 
-    private static float s_chanceDividingInProcent = 100;
+    public event Action<Cube> Dividing;
 
-    public event Action CubeDividing;
+    private float _chanceDividing = 1f;
 
     private void OnMouseUpAsButton()
     {
-        TryDividing();
+        TryDivide();
         Destroy(gameObject);
     }
 
-    private void TryDividing()
+    public void ReducingChanceDivide(int chanceReductionMultiplier)
     {
-        int decreasing—hanceInProcent = 20;
-        int maxProcent = 100;
+        _chanceDividing /= chanceReductionMultiplier;
+    }
+
+    public void SetColor(Color color) 
+    {
+        GetComponent<Renderer>().material.color = color;
+    }
+
+    private void TryDivide()
+    {
         float minFloat = 0f;
         float maxFloat = 1f;
 
-        if (UnityEngine.Random.Range(minFloat, maxFloat) < s_chanceDividingInProcent / maxProcent)
-            CubeDividing?.Invoke();
+        if (UnityEngine.Random.Range(minFloat, maxFloat) < _chanceDividing)
+            Dividing?.Invoke(this);
 
         Instantiate(_effect, transform.position, transform.rotation);
-        s_chanceDividingInProcent -= s_chanceDividingInProcent * decreasing—hanceInProcent / maxProcent;
     }
 }

@@ -4,37 +4,39 @@ using UnityEngine;
 
 public class Divider : MonoBehaviour
 {
-    [SerializeField] private Cube _cubePrefab;
+    [SerializeField] private Cube _cube;
     [SerializeField] private List<Color> _colors;
-
-    public event Action<List<Cube>> CubeDivided;
 
     private int _minCubesCount = 2;
     private int _maxCubesCount = 6;
+    private int _chanceReductionMultiplier = 2;
     private float _scaleMultiplier = 2f;
+    private float _explosionForce = 300f;
+    private float _explosionRadius = 30f;
 
     private void OnEnable()
     {
-        _cubePrefab.CubeDividing += Divide;
+        _cube.Dividing += Divide;
     }
 
     private void OnDisable()
     {
-        _cubePrefab.CubeDividing -= Divide;
+        _cube.Dividing -= Divide;
     }
-    private void Divide()
+    private void Divide(Cube cube)
     {
-        List<Cube> newCubes = new();
         int countCube = UnityEngine.Random.Range(_minCubesCount, _maxCubesCount);
-        Color colorCube = _colors[UnityEngine.Random.Range(0, _colors.Count)];
-
-        _cubePrefab.GetComponent<Renderer>().material.color = colorCube;
-        _cubePrefab.transform.localScale /= _scaleMultiplier;
 
         for (int i = 0; i < countCube; i++)
-            newCubes.Add(Instantiate(_cubePrefab, transform.position, Quaternion.identity));
+        {
+            Cube newCube = Instantiate(cube, transform.position, Quaternion.identity);
+            Color colorCube = _colors[UnityEngine.Random.Range(0, _colors.Count)];
 
-        CubeDivided?.Invoke(newCubes);
+            newCube.transform.localScale /= _scaleMultiplier;
+            newCube.SetColor(colorCube);
+            newCube.ReducingChanceDivide(_chanceReductionMultiplier);
+            newCube.GetComponent<Rigidbody>().AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
+        }
     }
 }
 

@@ -883,33 +883,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 514161302758578011, guid: 11461d20e40753f4d9f977c3bf402678, type: 3}
-      propertyPath: _explosionForce
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 514161302758578011, guid: 11461d20e40753f4d9f977c3bf402678, type: 3}
-      propertyPath: _explosionRadius
-      value: 70
-      objectReference: {fileID: 0}
     - target: {fileID: 6690042356142687271, guid: 11461d20e40753f4d9f977c3bf402678, type: 3}
       propertyPath: m_Name
       value: Cube
-      objectReference: {fileID: 0}
-    - target: {fileID: 7527100069262509553, guid: 11461d20e40753f4d9f977c3bf402678, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2e85d4f08085f1b4ea69f074ff6abdf1, type: 2}
-    - target: {fileID: 8013171957276252278, guid: 11461d20e40753f4d9f977c3bf402678, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8013171957276252278, guid: 11461d20e40753f4d9f977c3bf402678, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8013171957276252278, guid: 11461d20e40753f4d9f977c3bf402678, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8013171957276252278, guid: 11461d20e40753f4d9f977c3bf402678, type: 3}
       propertyPath: m_LocalPosition.x
