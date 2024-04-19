@@ -23,7 +23,7 @@ public class Exploder : MonoBehaviour
     private void Explode(Cube cube)
     {
         Instantiate(_effect, transform.position, transform.rotation);
-        float multiplier = cube.transform.localScale.x > 1 ? 1 / cube.transform.localScale.x : -(float)Math.Log(cube.transform.localScale.x) + 1;
+        float multiplier = 1 / cube.transform.localScale.x;
 
         List<Rigidbody> explodableObjects = Physics.OverlapSphere(transform.position, _explosionRadius)
             .Where(hit => hit.attachedRigidbody != null)
