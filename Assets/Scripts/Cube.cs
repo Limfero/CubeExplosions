@@ -8,6 +8,12 @@ public class Cube : MonoBehaviour
     public event Action<Cube> NotDivided;
 
     private float _chanceDividing = 1f;
+    private Renderer _renderer;
+
+    private void Awake()
+    {
+        _renderer = GetComponent<Renderer>();
+    }
 
     private void OnMouseUpAsButton()
     {
@@ -22,7 +28,7 @@ public class Cube : MonoBehaviour
 
     public void SetColor(Color color) 
     {
-        GetComponent<Renderer>().material.color = color;
+        _renderer.material.color = color;
     }
 
     private void TryDivide()
